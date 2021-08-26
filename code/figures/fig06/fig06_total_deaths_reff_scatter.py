@@ -33,10 +33,10 @@ def plot_fun(df):
 
 
 
-filenames = ['../results/csv-data/results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b117-16yo-mean-vals.csv',
-             '../results/csv-data/results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b117-12yo-mean-vals.csv',
-             '../results/csv-data/results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b16172-16yo-mean-vals.csv',
-             '../results/csv-data/results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b16172-12yo-mean-vals.csv']
+filenames = ['results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b117-16yo-mean-vals.csv',
+             'results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b117-12yo-mean-vals.csv',
+             'results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b16172-16yo-mean-vals.csv',
+             'results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b16172-12yo-mean-vals.csv']
 
 xlabels = ['B.1.1.7\n vaccine coverage \n(fraction of vaccinated people aged 16 and over)',
            'B.1.1.7\n vaccine coverage \n(fraction of vaccinated people aged 12 and over)',
