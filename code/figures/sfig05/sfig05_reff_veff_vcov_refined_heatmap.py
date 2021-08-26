@@ -19,96 +19,104 @@ def get_subframe(df, cluster_size=20, par_to_display_name="r_eff_30", var1="vax_
 
 
 
-def plot_heatmaps(df_map, cmap_name='coolwarm', fig_label=''):
+def plot_heatmaps(df_map, cmap_name='coolwarm', xlabel='', plot_patches=False):
     #f, ax = plt.subplots(figsize=(19.5, 17.5))
     f, ax = plt.subplots(figsize=(17.5, 17.5))
     sns.heatmap(df_map, annot=True, fmt=".1f", linewidths=.5, ax=ax, cmap=cmap_name, vmin=0.5, vmax=1.5, cbar_kws={'label': '$r_{eff}^{30}$'})
     
     trans = transforms.blended_transform_factory(ax.transData, ax.transData)
 
-    ax.add_patch(patches.Rectangle(
-    (3, 15),   # (x,y)
-    2,          # width
-    4,          # height
-    fill=False,
-    transform=trans,
-    zorder=4,
-    alpha=1.0,
-    ec="black",
-    lw=6
-    ))
+    if plot_patches:
+        ax.add_patch(patches.Rectangle(
+        (3, 15),   # (x,y)
+        2,          # width
+        4,          # height
+        fill=False,
+        transform=trans,
+        zorder=4,
+        alpha=1.0,
+        ec="black",
+        lw=6
+        ))
 
-    ax.add_patch(patches.Rectangle(
-    (3, 15),   # (x,y)
-    2,          # width
-    4,          # height
-    fill=False,
-    transform=trans,
-    zorder=4,
-    alpha=1.0,
-    ec="#f46d43",
-    lw=2
-    ))
-
-
-    ax.add_patch(patches.Rectangle(
-    (11, 15),   # (x,y)
-    2,          # width
-    4,          # height
-    fill=False,
-    transform=trans,
-    zorder=4,
-    ec="black",
-    lw=6
-    ))
-
-    ax.add_patch(patches.Rectangle(
-    (11, 15),   # (x,y)
-    2,          # width
-    4,          # height
-    fill=False,
-    transform=trans,
-    zorder=4,
-    ec="#ffffbf",
-    lw=2
-    ))
+        ax.add_patch(patches.Rectangle(
+        (3, 15),   # (x,y)
+        2,          # width
+        4,          # height
+        fill=False,
+        transform=trans,
+        zorder=4,
+        alpha=1.0,
+        ec="#f46d43",
+        lw=2
+        ))
 
 
-    ax.add_patch(patches.Rectangle(
-    (13, 15),   # (x,y)
-    1,          # width
-    4,          # height
-    fill=False,
-    transform=trans,
-    zorder=4,
-    ec="black",
-    lw=6
-    ))
+        ax.add_patch(patches.Rectangle(
+        (11, 15),   # (x,y)
+        2,          # width
+        4,          # height
+        fill=False,
+        transform=trans,
+        zorder=4,
+        ec="black",
+        lw=6
+        ))
 
-    ax.add_patch(patches.Rectangle(
-    (13, 15),   # (x,y)
-    1,          # width
-    4,          # height
-    fill=False,
-    transform=trans,
-    zorder=4,
-    ec="#91cf60",
-    lw=2
-    ))
+        ax.add_patch(patches.Rectangle(
+        (11, 15),   # (x,y)
+        2,          # width
+        4,          # height
+        fill=False,
+        transform=trans,
+        zorder=4,
+        ec="#ffffbf",
+        lw=2
+        ))
+
+
+        ax.add_patch(patches.Rectangle(
+        (13, 15),   # (x,y)
+        1,          # width
+        4,          # height
+        fill=False,
+        transform=trans,
+        zorder=4,
+        ec="black",
+        lw=6
+        ))
+
+        ax.add_patch(patches.Rectangle(
+        (13, 15),   # (x,y)
+        1,          # width
+        4,          # height
+        fill=False,
+        transform=trans,
+        zorder=4,
+        ec="#91cf60",
+        lw=2
+        ))
 
     plt.yticks(rotation=0) 
     ax.xaxis.tick_top()
     ax.xaxis.set_label_position('top') 
     ax.set_ylabel('vaccine efficacy \n (tranmission blocking)')
-    #ax.set_xlabel('B.1.1.7\n vaccine coverage \n(fraction of vaccinated people aged 0-104 years old)\n')
-    ax.set_xlabel('B.1.617.2\n vaccine coverage \n(fraction of vaccinated people aged 0-104 years old)\n')
-    #ax.annotate(fig_label, xy=(0.02, 0.9125), xycoords='figure fraction', fontsize=32)
-    #ax.annotate('X', xy=(0.2, 0.8), xycoords='data', fontsize=32)
+    ax.set_xlabel(xlabel)
     f.tight_layout()
     return
 
 
-df  = pd.read_csv('../results/csv-data/results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b16172-00yo-mean-vals.csv')
-dsf = get_subframe(df)
-plot_heatmaps(dsf)
+
+filenames = ['results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b117-00yo-mean-vals.csv',
+             'results_vax_simple-vaccine-apply-testing-tracing_nruns-0100-b16172-00yo-mean-vals.csv']
+
+xlabels = ['B.1.1.7\n vaccine coverage \n(fraction of vaccinated people aged 0-104 years old)\n',
+           'B.1.617.2\n vaccine coverage \n(fraction of vaccinated people aged 0-104 years old)\n']
+
+plot_boxes = [False, True]
+
+for (this_file, this_xlabel, plot_the_box) in zip(filenames, xlabels, plot_boxes):
+    df  = pd.read_csv(this_file)
+    dsf = get_subframe(df)
+    plot_heatmaps(dsf, xlabel=this_xlabel, plot_patches=plot_the_box)
 plt.show()
