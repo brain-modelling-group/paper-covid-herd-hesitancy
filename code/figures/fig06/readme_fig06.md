@@ -1,4 +1,5 @@
-##### Caption Fig 06 Cumulative deaths as a function of vaccine efficacy
+##### Caption Fig 06 
+Cumulative deaths as a function of vaccine efficacy
 (transmission blocking) and vaccine coverage (fraction of vaccinated
 people of the eligible population). The size of the circles represents
 cumulative number of deaths over a period of 6 months. Red circles are
