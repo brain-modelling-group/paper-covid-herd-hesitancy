@@ -5,46 +5,46 @@
 # values. AgeSpecific = 0 gives uniform hesitancy with age (but the same total hesitancy) and
 # ArrayNum gives a unique number for saving multiple runs. 
 
-
 # Requires population files created by Generate_HesitancyPop.py.
 
 def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size,ArrayNum):       
     import covasim as cv
+    import covasim.parameters as cvp
     import pandas as pd
     import numpy as np
     import sciris as sc    
-
+    import pdb
     tt = 1  # Testing and tracing, 1 for yes and 0 for no
 
-
-    # Choose variant based on input
-    Variant = ['alpha', 'delta','omicron']
+   
     pop_size = 2e5
 
-    AgeGroups = [15,17,24,34,44,54,64,200]  
     
     # Age groups describe starting age for population
     AgeGroups_Dict = {
                 "August2020":      [15,17,24,34,44,54,64,200],  
-                "January2021":     [15,17,24,34,44,54,64,200]  ,
+                "January2021":     [15,17,24,34,44,54,64,200],
                 "April2021":       [15,17,24,34,44,54,64,200],
                 "April_12_2021":   [11,17,24,34,44,54,64,200],
-                "NowHesitancy":    [15,17,24,34,44,54,64,200], 
-                "LowHesitancy":    [11,17,24,34,44,54,64,200]
+                "LowHesitancy":    [11,17,24,34,44,54,64,200],
+                "FullHesitancy":   [11,17,24,34,44,54,64,200],
+                "NoHesitancy":     [-1,17,24,34,44,54,64,200]
     }
 
-
-    # Hesitancy values from Biddel et al., 2021
+    AgeGroups = AgeGroups_Dict[Hesitancy_Name]
+    # Hesitancy values from Biddel et al., 2021, note <18 is estimated by 35-44 age
     Hesitancy_Dict = {
-                "August2020":      (0.092,0.171,0.117,0.163,0.104,0.080),  
-                "January2021":     (0.247,0.145,0.298,0.247,0.270, 0.121,0.094),
-                "April2021":       (0.150,0.162,0.174,0.153,0.133,0.080),
-                "April_12_2021":   (0.174,0.162,0.174,0.153,0.133,0.080),
-                "NowHesitancy":    (0.174,0.150,0.162,0.174,0.153,0.133,0.080),
-                "LowHesitancy":    (0.080,0.080,0.080,0.080,0.080,0.080,0.080)
+                "August2020":      (0.163,0.092,0.171,0.117,0.163,0.104,0.080),  
+                "January2021":     (0.247,0.145,0.298,0.247,0.270,0.121,0.094),
+                "April2021":       (0.174,0.150,0.162,0.174,0.153,0.133,0.080),
+                "April_12_2021":   (0.174,0.150,0.162,0.174,0.153,0.133,0.080),
+                "LowHesitancy":    (0.080,0.080,0.080,0.080,0.080,0.080,0.080),
+                "FullHesitancy":   (1.000,1.000,1.000,1.000,1.000,1.000,1.000),
+                "NoHesitancy":     (0.000,0.000,0.000,0.000,0.000,0.000,0.000)
                 }
 
     Hesitancy = Hesitancy_Dict[Hesitancy_Name]
+    print(Hesitancy)
 
     if AgeSpecific == 0: # If non-specific
         # Convert to non-specific values using the population values    
@@ -89,7 +89,7 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
         Hesitancy = FracUnvaccinated*Hesitancy # Evenly spread hesitancy
 
     
-    popfile = '../inputs/qldppl-abs2020-200k-' + Variant_Name + '-ClusterSize' + str(Cluster_Size)+'.pop'
+    popfile = 'inputs/qldppl-abs2020-' + str(int(pop_size)) + '-' + Variant_Name + '-ClusterSize' + str(int(Cluster_Size))+'.pop'
     
     # Testing and tracing probabilities for the 14-layer model
     def testing_and_tracing_interventions(sim,start_simulation_date, end_simulation_date, label, num_tests=7501):
@@ -164,17 +164,17 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
     # Define list with dates and number of imports and virus variant
     
     if Variant_Name == 'alpha':
-        imported_infections = cv.variant('alpha', days= 21, n_imports=Cluster_Size, rescale=False) 
+        imported_infections = cv.variant('alpha', label='alpha', days= 21, n_imports=Cluster_Size, rescale=False) 
     elif Variant_Name == 'delta':
         # delta = dict(
-        #             rel_beta        = 2.2, # Estimated to be 1.25-1.6-fold more transmissible than B117: https://www.researchsquare.com/article/rs-637724/v1
+        #             rel_beta        = 2.2, # Estimated to be 1.25-1.6-fold more transmissible than B117: https://www.researcchsquare.com/article/rs-637724/v1
         #             rel_symp_prob   = 1.0,
         #             rel_severe_prob = 3.2, # 2x more transmissible than alpha from https://mobile.twitter.com/dgurdasani1/status/1403293582279294983
         #             rel_crit_prob   = 1.0,
         #             rel_death_prob  = 1.0,
         #         )
-        # imported_infections = cv.variant(variant = delta, days=22, n_imports=Cluster_Size, rescale=False)
-        imported_infections = cv.variant(variant = 'delta', days=21, n_imports=Cluster_Size, rescale=False)
+        imported_infections = cv.variant(variant = 'delta', label = 'delta', days=21, n_imports=Cluster_Size, rescale=False)
+
     elif Variant_Name == 'omicron': # From covasim 3.1.2
         omicron = dict(
                     rel_beta        = 3.0, # Estimated to be 1.25-1.6-fold more transmissible than B117: https://www.researchsquare.com/article/rs-637724/v1
@@ -183,8 +183,9 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
                     rel_crit_prob   = 0.5,
                     rel_death_prob  = 1.0,
                 )
-        # imported_infections = cv.variant(variant = b16172, days=22, n_imports=Cluster_Size, rescale=False)
-        imported_infections = cv.variant(variant = omicron, days=21, n_imports=Cluster_Size, rescale=False)
+        imported_infections = cv.variant(variant = omicron, label  = 'omicron', days=21, n_imports=Cluster_Size, rescale=False)
+        # Label it b117 to ensure it uses the correct immunity
+        # imported_infections = cv.variant(variant = omicron, label  = 'b117', days=21, n_imports=Cluster_Size, rescale=False)
     
     
     all_layers = ['H', 'S', 'W', 'C', 
@@ -276,7 +277,7 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
     # Vaccination with hesitancy    
     FullPopulation = sim_hesitance.people.uid
     FullVacc_pop_vals = np.ones(np.size(FullPopulation)) # 1 is vaccinate, 0 is leave
-    FullVacc_pop_vals[sim_hesitance.people.uid< 18] = 0 #Remove under 18
+    FullVacc_pop_vals[sim_hesitance.people.age <= AgeGroups[0]] = 0 #Remove under age
     FullVacc_pop_vals[hesitancy_uids] = 0 #Remove hesitants    
 
     # Effectiveness of pfizer on different strains. From covasim parameters,
@@ -296,63 +297,74 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
         vax_efficacy = 1/2.0
     elif Variant_Name == 'delta':  # Delta
         vax_efficacy = 1/2.9
-    elif Variant_Name == 'omicron':
+    elif Variant_Name == 'omicron': # Omicron
+        # vax_efficacy = 1/40
         vax_efficacy = 1/40
 
-    # Relevant code from covasim - hybridize pfizer to have the same effectiveness,
-    # but only a single dose
-    default_nab_eff = dict(
-         alpha_inf      =  1.11,
-         beta_inf       =  1.219,
-         alpha_symp_inf = -1.06,
-         beta_symp_inf  =  0.867,
-         alpha_sev_symp =  0.268,
-         beta_sev_symp  =  3.4
-     )    
-    pfizer_custom = dict(
-        nab_eff   = sc.dcp(default_nab_eff),
-        nab_init  = dict(dist='normal', par1=2, par2=2),
-        nab_boost = 3,
-        doses     = 1,
-        interval  = None,
-    )                
+    # # Relevant code from covasim - hybridize pfizer to have the same effectiveness,
+    # # but only a single dose
+    # default_nab_eff = dict(
+    #      alpha_inf      =  1.11,
+    #      beta_inf       =  1.219,
+    #      alpha_symp_inf = -1.06,
+    #      beta_symp_inf  =  0.867,
+    #      alpha_sev_symp =  0.268,
+    #      beta_sev_symp  =  3.4
+    #  )    
+
+    # pfizer_custom = dict(
+    #     nab_eff   = sc.dcp(default_nab_eff),
+    #     nab_init  = dict(dist='normal', par1=2, par2=2),
+    #     nab_boost = 3,
+    #     doses     = 1,
+    #     interval  = None,
+    #     p = {Variant_Name: vax_efficacy}
+    # )                
            
+    dose_pars = cvp.get_vaccine_dose_pars()['pfizer']
+    variant_pars = cvp.get_vaccine_variant_pars()['pfizer']
+    variant_pars[Variant_Name] = vax_efficacy
+    pfizer_custom = sc.mergedicts({'label':'pfizer'}, sc.mergedicts(dose_pars, variant_pars))
+ 
     # vaccinate reads a dictionary of uids to vaccinate and the probability of
     # vaccinating.     
-    vaccination_dict = dict(inds = FullPopulation, vals = FullVacc_pop_vals)                   
-    # vaccine = cv.vaccinate(vaccine = pfizer_custom, days= 0, subtarget=vaccination_dict,label = 'pfizer') # rel_sus = 1-vax_efficacy,
-    vaccine = cv.vaccinate(vaccine = 'pfizer', days= 0, subtarget=vaccination_dict,label = 'pfizer')
+    vaccination_dict = dict(inds = FullPopulation, vals = FullVacc_pop_vals)
+
+    # vaccine = cv.vaccinate(vaccine = 'pfizer', days= 0, subtarget=vaccination_dict,label = 'pfizer')
+    # # Add this variant and corresponding efficacy to the vaccine
+    # vaccine.p[Variant_Name] = vax_efficacy
+
+    vaccine = cv.vaccinate(vaccine = pfizer_custom, days= 0, subtarget=vaccination_dict,label = 'pfizer') # rel_sus = 1-vax_efficacy,
     # vaccine = cv.simple_vaccine(days= 0,rel_sus = 1-vax_efficacy, subtarget=vaccination_dict) # rel_sus = 1-vax_efficacy,
+
     sim_hesitance.pars['interventions'].append(vaccine)
     sim_hesitance.initialize()  #need to initialize again otherwise covasim complains that the intervention has not been initialized
     # sim_hesitance.pars['vaccine_pars']['pfizer']['b16172'] =  1/2.9
-
+    # sim_hesitance.pars['vaccine_pars']['pfizer'][Variant_Name] =  vax_efficacy
     msim = sim_hesitance
     msim.run()     
 
-    
     #--------------------Analysis-------------------------#
-    
-    
+        
     # Find the number of people in each age group who were vaccinated, infected or
     # dead. Furthermore, find the people who were infected/died AND were vaccinated 
     
     # Need it to work for multisim, or at least cycle through each simulation and 
     # save a matrix (to be averaged column-wise).       
     
-    ii = 0 # Single simulation   
     sim = msim  
-    AgeBounds =  [0,17,24,34,44,54,64,200]    
+    AgeBounds =  [-1,17,24,34,44,54,64,200]    
     AgeLabels = ['0-17','18-24','25-34','35-44','45-54','55-64','65+']
     
-    Size_per_age = np.zeros((1,np.size(AgeGroups)))
-    Infected_per_age = np.zeros((1,np.size(AgeGroups)))
-    Dead_per_age = np.zeros((1,np.size(AgeGroups)))
-    Vaccinated_per_age = np.zeros((1,np.size(AgeGroups)))
-    VaccInfected_per_age = np.zeros((1,np.size(AgeGroups)))
-    VaccDead_per_age = np.zeros((1,np.size(AgeGroups)))
-    Critical_per_age = np.zeros((1,np.size(AgeGroups)))
-    VaccCritical_per_age = np.zeros((1,np.size(AgeGroups)))
+    Size_per_age = np.zeros((np.size(AgeLabels)))
+    Infected_per_age = np.zeros((np.size(AgeLabels)))
+    Dead_per_age = np.zeros((np.size(AgeLabels)))
+    Vaccinated_per_age = np.zeros((np.size(AgeLabels)))
+    VaccInfected_per_age = np.zeros((np.size(AgeLabels)))
+    VaccDead_per_age = np.zeros((np.size(AgeLabels)))
+    Critical_per_age = np.zeros((np.size(AgeLabels)))
+    VaccCritical_per_age = np.zeros((np.size(AgeLabels)))
+
     for jj in range(np.size(AgeBounds)-1):
       
         # Find the index for the people in this age group
@@ -360,61 +372,52 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
         # Get the ID of this age group         
         this_age_uids = sim.people.uid[this_age_group]
         # Find which of the following IDs have the following attributes:
-        Size_per_age[ii,jj] = np.size(this_age_uids)/pop_size
-        Infected_per_age[ii,jj] = np.sum(msim.people.date_infectious[this_age_group]>=0)/pop_size
-        Infected_per_age[ii,jj] = np.sum(msim.people.date_infectious[this_age_group]>=0)/pop_size
-        Dead_per_age[ii,jj] = np.sum(msim.people.date_dead[this_age_group]>=0)/pop_size
-        Vaccinated_per_age[ii,jj] = np.sum(msim.people.date_vaccinated[this_age_group]>=0)/pop_size
-        VaccInfected_per_age[ii,jj] = np.sum((msim.people.date_vaccinated[this_age_group]>=0)*(msim.people.date_infectious[this_age_group]>0))/pop_size
-        VaccDead_per_age[ii,jj] = np.sum((msim.people.date_vaccinated[this_age_group]>=0)*(msim.people.date_dead[this_age_group]>0))/pop_size
-        Critical_per_age[ii,jj] = np.sum(msim.people.date_critical[this_age_group]>=0)/pop_size
-        VaccCritical_per_age[ii,jj] = np.sum((msim.people.date_vaccinated[this_age_group]>=0)*(msim.people.date_critical[this_age_group]>0))/pop_size
+        Size_per_age[jj] = np.size(this_age_uids)/pop_size
+        Infected_per_age[jj] = np.sum(msim.people.date_infectious[this_age_group]>=0)/pop_size
+        Infected_per_age[jj] = np.sum(msim.people.date_infectious[this_age_group]>=0)/pop_size
+        Dead_per_age[jj] = np.sum(msim.people.date_dead[this_age_group]>=0)/pop_size
+        Vaccinated_per_age[jj] = np.sum(msim.people.date_vaccinated[this_age_group]>=0)/pop_size
+        VaccInfected_per_age[jj] = np.sum((msim.people.date_vaccinated[this_age_group]>=0)*(msim.people.date_infectious[this_age_group]>0))/pop_size
+        VaccDead_per_age[jj] = np.sum((msim.people.date_vaccinated[this_age_group]>=0)*(msim.people.date_dead[this_age_group]>0))/pop_size
+        Critical_per_age[jj] = np.sum(msim.people.date_critical[this_age_group]>=0)/pop_size
+        VaccCritical_per_age[jj] = np.sum((msim.people.date_vaccinated[this_age_group]>=0)*(msim.people.date_critical[this_age_group]>0))/pop_size
     
-    # Finding mean and std for each
-    AgeSpecificData = pd.DataFrame(data = [np.mean(Size_per_age,0),
-                              np.mean(Vaccinated_per_age,0),
-                              np.mean(Infected_per_age,0),
-                              np.mean(VaccInfected_per_age,0),
-                              np.mean(Dead_per_age,0),
-                              np.mean(VaccDead_per_age,0),                              
-                              np.mean(Critical_per_age,0),
-                              np.mean(VaccCritical_per_age,0),
-                              np.std(Size_per_age,0),
-                              np.std(Vaccinated_per_age,0),
-                              np.std(Infected_per_age,0),
-                              np.std(VaccInfected_per_age,0),
-                              np.std(Dead_per_age,0),
-                              np.std(VaccDead_per_age,0),
-                              np.std(Critical_per_age,0),
-                              np.std(VaccCritical_per_age,0)],
-                      index = ['Mean_Size_per_age',
-                               'Mean_Vaccinated',
-                               'Mean_Infected',
-                               'Mean_Infected_Vaccinated',
-                               'Mean_Dead',
-                               'Mean_Dead_Vaccinated',
-                               'Mean_Critical',
-                               'Mean_Critical_Vaccinated',
-                               'Std_Size_per_age',
-                               'Std_Vaccinated',
-                               'Std_Infected',
-                               'Std_Infected_Vaccinated',
-                               'Std_Dead',
-                               'Std_Dead_Vaccinated',
-                               'Std_Critical',
-                               'Std_Critical_Vaccinated'],
-                      columns = AgeLabels)   
+    # Finding store percentage values of each 
+    AgeSpecificData = pd.DataFrame(data = [Size_per_age,
+                                           Vaccinated_per_age,
+                                           Infected_per_age,
+                                           VaccInfected_per_age,
+                                           Dead_per_age,
+                                           VaccDead_per_age,                         
+                                           Critical_per_age,
+                                           VaccCritical_per_age],                           
+                                  index= ['Size_per_age',
+                                          'Vaccinated',
+                                          'Infected',
+                                          'Infected_Vaccinated',
+                                          'Dead',
+                                          'Dead_Vaccinated',
+                                          'Critical', 
+                                          'Critical_Vaccinated'],                        
+                                columns = AgeLabels)   
     
     # Save infection stats and full simulation
-    
-    filename_agespec = "Data/" + Hesitancy_Name + Variant_Name + AgeSpecific + "_AgeSpec_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+    if AgeSpecific == 0:
+        filename_agespec = "Results/" + Hesitancy_Name + Variant_Name  + "NonSpec_AgeSpec_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        filename_dynamics = "Results/" + Hesitancy_Name + Variant_Name  + "NonSpec_Dynamics_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        sim_name = "Results/" + Hesitancy_Name + Variant_Name  + "NonSpec_Sim_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".obj"
+    else:
+        filename_agespec = "Results/" + Hesitancy_Name + Variant_Name  + "_AgeSpec_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        filename_dynamics = "Results/" + Hesitancy_Name + Variant_Name  + "_Dynamics_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        sim_name = "Results/" + Hesitancy_Name + Variant_Name  + "_Sim_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".obj"
+   
     AgeSpecificData.transpose().to_csv(filename_agespec)
     
     # Get the time series for each simulation
     infection_TS = np.array(sim.results['new_infections'])
     reff_cv_TS = np.array(sim.results['r_eff']) # r_effective 
    
-    # r_eff for the simulation is the average of all non-zero and n
+    # r_eff for the simulation is the average of all non-zero and non-infinite
     # divergent values
     reff_cv_TS[np.where(~np.isfinite(reff_cv_TS))]= 0
     reff_cv_TS[np.where(reff_cv_TS>15)]= 0
@@ -432,8 +435,9 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
                                 }
                        )  
         
-    filename_dynamics = "Data/" + Hesitancy_Name + Variant_Name + AgeSpecific + "_Dynamics_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
     DynamicsData.to_csv(filename_dynamics)
     
-    sim_name = "Data/" + Hesitancy_Name + Variant_Name + AgeSpecific + "_Sim_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".obj"
     msim.save(sim_name)    
+    pdb.set_trace()
+
+Hesitancy_SingleCoreRun('January2021',1,'delta',20,2)

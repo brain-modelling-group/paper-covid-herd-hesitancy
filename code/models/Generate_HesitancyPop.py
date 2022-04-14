@@ -1,6 +1,3 @@
-import os
-os.chdir('./code/models')
-
 import sys
 sys.path.append('../') # Add path to covasim_australia
 
@@ -55,9 +52,10 @@ for Variant_Name in Variant_Names:
 
     elif Variant_Name == 'delta':
     
-        imported_infections = cv.variant('delta', days=22, n_imports=Cluster_Size, rescale=False)
+        imported_infections = cv.variant('delta', days=21, n_imports=Cluster_Size, rescale=False)
    
     elif Variant_Name == 'omicron': # From covasim 3.1.3 unfinished version parameters
+
         omicron = dict(
                     rel_beta        = 3.0, # Estimated to be 1.25-1.6-fold more transmissible than B117: https://www.researchsquare.com/article/rs-637724/v1
                     rel_symp_prob   = 1.0,
@@ -66,7 +64,7 @@ for Variant_Name in Variant_Names:
                     rel_death_prob  = 1.0,
                 )
 
-        imported_infections = cv.variant(omicron, days=21, n_imports=Cluster_Size, rescale=False)    
+        imported_infections = cv.variant(omicron, days=21, n_imports=Cluster_Size, rescale=False,label = 'omicron')    
 
     user_pars = {'pop_size': pop_size,
                     'pop_scale': pop_scale,
@@ -95,7 +93,7 @@ for Variant_Name in Variant_Names:
 
     people, popdict = co.make_people(params)
 
-    popfile = 'inputs/qldppl-abs2020-200k-' + Variant_Name + '-ClusterSize' + str(int(Cluster_Size))+'.pop'
+    popfile = 'inputs/qldppl-abs2020-' + str(int(pop_size)) + '-' + Variant_Name + '-ClusterSize' + str(int(Cluster_Size))+'.pop'
 
     if savepeople: 
         sc.saveobj(popfile, people)
