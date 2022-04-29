@@ -2,7 +2,7 @@
 #PBS -l walltime=8:00:00
 #PBS -l ncpus=1,mem=1gb
 #PBS -N COVID_JanHes
-#PBS -J 0-99
+#PBS -J 0-999
 
 module load python/3.6.1
 

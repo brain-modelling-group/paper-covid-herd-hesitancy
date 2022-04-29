@@ -73,6 +73,11 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
 
         # Get population in each category
         AgeGroupSize = []
+        if AgeGroups[0] == 11: # 12+
+            AgeGroupSize.append(round(qld_pop['10-14']/5*3)+round(qld_pop['15-19']/5*3)) #12-17
+        else: # 16+
+            AgeGroupSize.append(round(qld_pop['15-19']/5*2)) #16-17
+
         AgeGroupSize.append(round(qld_pop['15-19']/5*2)+qld_pop['20-24']) #18-24
         AgeGroupSize.append(qld_pop['25-29']+qld_pop['30-34']) #25-34
         AgeGroupSize.append(qld_pop['35-39']+qld_pop['40-44']) #35-44
