@@ -67,4 +67,4 @@ venv.bak/
 .vscode
 
 # raw data
-code/models/Results
+code/models/Results/*.csv
