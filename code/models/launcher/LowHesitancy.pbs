@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -l walltime=8:00:00
+#PBS -l ncpus=1,mem=1gb
+#PBS -N COVID_LowHes
+#PBS -J 0-99
+
+module load python/3.6.1
+
+cd /working/lab_jamesr/lachlanHa/paper-covid-herd-hesitancy/code/models
+
+variants=("delta" "omicron")
+echo $PBS_ARRAY_INDEX
+for variant in ${variants[@]}
+do
+	for agespec in {0..1}
+	do
+		echo $variant $agespec		
+		python -c "from Hesitancy_SingleCoreRun import*; Hesitancy_SingleCoreRun ('LowHesitancy',$agespec,'$variant',20,$PBS_ARRAY_INDEX)"
+	done
+done

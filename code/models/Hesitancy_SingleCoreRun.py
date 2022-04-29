@@ -12,8 +12,7 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
     import covasim.parameters as cvp
     import pandas as pd
     import numpy as np
-    import sciris as sc    
-    import pdb
+    import sciris as sc   
     tt = 1  # Testing and tracing, 1 for yes and 0 for no
 
    
@@ -298,7 +297,6 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
     elif Variant_Name == 'delta':  # Delta
         vax_efficacy = 1/2.9
     elif Variant_Name == 'omicron': # Omicron
-        # vax_efficacy = 1/40
         vax_efficacy = 1/40
 
     # # Relevant code from covasim - hybridize pfizer to have the same effectiveness,
@@ -437,7 +435,4 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
         
     DynamicsData.to_csv(filename_dynamics)
     
-    msim.save(sim_name)    
-    pdb.set_trace()
-
-Hesitancy_SingleCoreRun('January2021',1,'delta',20,2)
+    msim.save(sim_name) 

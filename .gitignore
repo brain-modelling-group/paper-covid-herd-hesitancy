@@ -62,3 +62,9 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
+
+#vs project settings
+.vscode
+
+# raw data
+code/models/Results
