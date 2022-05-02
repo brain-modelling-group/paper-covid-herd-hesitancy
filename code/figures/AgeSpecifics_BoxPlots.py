@@ -27,9 +27,9 @@ Fig_Titles = ["16+ Eligible \n January 2021 Hesitancy",
 swarmsize = 4
 
 fsize_title = 22
-fsize_legend = 16
-fsize_labels= 18
-fsize_numbers = 9
+fsize_legend = 18
+fsize_labels= 22
+fsize_numbers = 22
 
 plt.rc('font', size=fsize_numbers)          # controls default text sizes
 plt.rc('axes', titlesize=fsize_labels)     # fontsize of the axes title
@@ -85,9 +85,7 @@ for agespec in agespecs:
             Dead_Data = pd.DataFrame(data = Dead_N, index = dict_labels).T   
             Infectious_Vacc_Data = pd.DataFrame(data = Infectious_Vacc_N, index = dict_labels).T
             Critical_Vacc_Data = pd.DataFrame(data = Critical_Vacc_N, index = dict_labels).T
-            Dead_Vacc_Data = pd.DataFrame(data = Dead_Vacc_N, index = dict_labels).T  
-            if agespec == 'NonSpec':
-                pdb.set_trace()
+            Dead_Vacc_Data = pd.DataFrame(data = Dead_Vacc_N, index = dict_labels).T            
 
             # Making the figure
             fig, ax = plt.subplots(ncols = 1, nrows = 3, figsize=(11,11))
@@ -112,17 +110,21 @@ for agespec in agespecs:
             bwidth = 10
             ax[0].bar(-10,1, color=col_infected,label = 'Infectious')
             ax[0].bar(-10,1, color=np.multiply(col_infected,alph1),label = 'Infectious and Vaccinated')
-            ax[0].legend(loc = 'upper left')
+            ax[0].legend(loc = 'upper center')
             ax[1].bar(-10,1, color=col_critical,label = 'Critical')
             ax[1].bar(-10,1, color=np.multiply(col_critical,alph1),label = 'Critical and Vaccinated')
-            ax[1].legend(loc = 'upper left')
+            ax[1].legend(loc = 'upper center')
             ax[2].bar(-10,1, color=col_dead,label = 'Dead')
             ax[2].bar(-10,1, color=np.multiply(col_dead,alph1),label = 'Dead and Vaccinated')
-            ax[2].legend(loc = 'upper left')
+            ax[2].legend(loc = 'upper center')
 
 
             # Make neat
-            ax[0].set_title(Fig_Titles[ii])
+            if agespec == 'NonSpec':
+            
+                ax[0].set_title(Fig_Titles[ii]+' (Non-Specific)')
+            else:
+                ax[0].set_title(Fig_Titles[ii])
             # Set axis for all
             for jj in range(3):
                 ax[jj].set_xticks([])  
@@ -132,9 +134,18 @@ for agespec in agespecs:
                     ax[jj].tick_params('x',rotation = 45)    
                     ax[jj].set_xticklabels([AgeNames[x] for x in range(np.size(AgeNames))])
         
-            ax[0].set_ylim([0,Infectious_Data.max().max()*1.5]) 
-            ax[1].set_ylim([0,Critical_Data.max().max()*1.5]) 
-            ax[2].set_ylim([0,Dead_Data.max().max()*1.5]) 
+            # ax[0].set_ylim([0,Infectious_Data.max().max()*1.5]) 
+            # ax[1].set_ylim([0,Critical_Data.max().max()*1.5]) 
+            # ax[2].set_ylim([0,Dead_Data.max().max()*1.5]) 
+            if variant=='delta':                        
+                ax[0].set_ylim([0,125000]) 
+                ax[1].set_ylim([0,8000]) 
+                ax[2].set_ylim([0,4000]) 
+            if variant=='omicron':                        
+                ax[0].set_ylim([0,800000]) 
+                ax[1].set_ylim([0,30000]) 
+                ax[2].set_ylim([0,15000]) 
+
             ax[2].set_xlabel('Age-Group') 
         
             ax[0].set_ylabel('Number of People') 
