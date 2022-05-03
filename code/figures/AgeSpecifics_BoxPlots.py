@@ -52,6 +52,8 @@ width_bars = 0.75
 # Reading dictionary names
 dict_labels = ["0-14","15-24","25-34","35-44","45-54","55-64","65+"]
 AgeNames = ['0-14','15-24','25-34','35-44','45-54','55-64','65+']
+# Setting up dictionary
+Median = {}
 
 for agespec in agespecs:
     for variant in variants:
@@ -59,6 +61,7 @@ for agespec in agespecs:
             #Load file 
             fname = glob.glob('../models/Results/' + Sim_Names[ii] + variant + agespec + '_AgeSpec_ClusterSize_20' + '*.csv' )
             N = np.size(fname) # Find number of matching files
+    
             # Prepare and clear data
             Infectious_N = np.zeros((np.size(AgeNames),N))
             Critical_N =  np.zeros((np.size(AgeNames),N))
@@ -86,6 +89,15 @@ for agespec in agespecs:
             Infectious_Vacc_Data = pd.DataFrame(data = Infectious_Vacc_N, index = dict_labels).T
             Critical_Vacc_Data = pd.DataFrame(data = Critical_Vacc_N, index = dict_labels).T
             Dead_Vacc_Data = pd.DataFrame(data = Dead_Vacc_N, index = dict_labels).T            
+         
+            # Output Medians
+        
+            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Infections'] = Infectious_Data.median()           
+            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Infections and Vaccinated'] = Infectious_Vacc_Data.median()
+            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+'Critical'] = Critical_Data.median()
+            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Critical and Vaccinated'] = Critical_Vacc_Data.median()
+            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Dead'] = Dead_Data.median()
+            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+'Dead and Vaccinated'] = Dead_Vacc_Data.median()
 
             # Making the figure
             fig, ax = plt.subplots(ncols = 1, nrows = 3, figsize=(11,11))
@@ -156,3 +168,6 @@ for agespec in agespecs:
                 # ax[2,ii].legend(loc = "upper left", ncol =3 ) 
 
             fig.savefig(Sim_Names[ii] +'_'+variant+'_'+agespec+'_'+'BoxPlot_AgeSpec_Day_90.jpg',dpi=300)
+
+Median = pd.DataFrame(Median)
+Median.to_csv('AgeSpecific_Medians.csv')
