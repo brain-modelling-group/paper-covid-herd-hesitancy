@@ -57,47 +57,15 @@ Median = {}
 
 for agespec in agespecs:
     for variant in variants:
-        for ii in range(np.size(Sim_Names)):    
-            #Load file 
-            fname = glob.glob('../models/Results/' + Sim_Names[ii] + variant + agespec + '_AgeSpec_ClusterSize_20' + '*.csv' )
-            N = np.size(fname) # Find number of matching files
-    
-            # Prepare and clear data
-            Infectious_N = np.zeros((np.size(AgeNames),N))
-            Critical_N =  np.zeros((np.size(AgeNames),N))
-            Dead_N =  np.zeros((np.size(AgeNames),N))
-            Infectious_Vacc_N = np.zeros((np.size(AgeNames),N))
-            Critical_Vacc_N =  np.zeros((np.size(AgeNames),N))
-            Dead_Vacc_N =  np.zeros((np.size(AgeNames),N))   
-            for jk in range(N):
-                Data = pd.read_csv(fname[jk])
-                # Move through ages             
-                # Get values - NOTE: stored as % of population
-                Infectious_N[:,jk] = np.multiply(np.array(Data['Infected']),popsize)
-                Critical_N[:,jk] = np.multiply(np.array(Data['Critical']),popsize)
-                Dead_N[:,jk] =  np.multiply(np.array(Data['Dead']),popsize)
-                Infectious_Vacc_N[:,jk] = np.multiply(np.array(Data['Infected_Vaccinated']),popsize)
-                Critical_Vacc_N[:,jk] = np.multiply(np.array(Data['Critical_Vaccinated']),popsize)
-                Dead_Vacc_N[:,jk] =  np.multiply(np.array(Data['Dead_Vaccinated']),popsize)
-                    
+        for ii in range(np.size(Sim_Names)):                      
                             
-            # Create dictionary for violin plots               
-            
-            Infectious_Data = pd.DataFrame(data = Infectious_N, index = dict_labels).T
-            Critical_Data = pd.DataFrame(data = Critical_N, index = dict_labels).T
-            Dead_Data = pd.DataFrame(data = Dead_N, index = dict_labels).T   
-            Infectious_Vacc_Data = pd.DataFrame(data = Infectious_Vacc_N, index = dict_labels).T
-            Critical_Vacc_Data = pd.DataFrame(data = Critical_Vacc_N, index = dict_labels).T
-            Dead_Vacc_Data = pd.DataFrame(data = Dead_Vacc_N, index = dict_labels).T            
-         
-            # Output Medians
-        
-            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Infections'] = Infectious_Data.median()           
-            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Infections and Vaccinated'] = Infectious_Vacc_Data.median()
-            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+'Critical'] = Critical_Data.median()
-            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Critical and Vaccinated'] = Critical_Vacc_Data.median()
-            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+ 'Dead'] = Dead_Data.median()
-            Median[Sim_Names[ii] +' '+ variant +' ' + agespec +' '+'Dead and Vaccinated'] = Dead_Vacc_Data.median()
+            # Load dictionary for violin plots               
+            Infectious_Data = pd.read_csv('../models/combined_results/' + Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Infectious.csv',index_col=0) 
+            Critical_Data= pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Critical.csv',index_col=0) 
+            Dead_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Dead.csv',index_col=0) 
+            Infectious_Vacc_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_InfectiousVacc.csv',index_col=0) 
+            Critical_Vacc_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_CriticalVacc.csv',index_col=0) 
+            Dead_Vacc_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_DeadVacc.csv',index_col=0) 
 
             # Making the figure
             fig, ax = plt.subplots(ncols = 1, nrows = 3, figsize=(11,11))
@@ -169,5 +137,4 @@ for agespec in agespecs:
 
             fig.savefig(Sim_Names[ii] +'_'+variant+'_'+agespec+'_'+'BoxPlot_AgeSpec_Day_90.jpg',dpi=300)
 
-Median = pd.DataFrame(Median)
-Median.to_csv('AgeSpecific_Medians.csv')
+
