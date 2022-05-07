@@ -16,10 +16,10 @@ popsize = 5.1e6 # QLD Population size
 # Name of different scenarios
 Sim_Names = [ "January2021","April2021","April_12_2021","LowHesitancy"]
 
-Fig_Titles = ["16+ Eligible \n January 2021 Hesitancy",
-              "16+ Eligible \n April 2021 Hesitancy",
-              "12+ Eligible \n April 2021 Hesitancy",
-              "12+ Eligible \n Low Hesitancy"]
+Fig_Titles = ["16+ Eligible \n High Hesitancy (20%, January 2021)",
+              "16+ Eligible \n Low Hesitancy (14%, April 2021)",
+              "12+ Eligible \n Low Hesitancy (14%, April 2021)",
+              "12+ Eligible \n Very Low Hesitancy (8%)"]
 
 #%% Boxplot code
 
@@ -117,14 +117,22 @@ for agespec in agespecs:
             # ax[0].set_ylim([0,Infectious_Data.max().max()*1.5]) 
             # ax[1].set_ylim([0,Critical_Data.max().max()*1.5]) 
             # ax[2].set_ylim([0,Dead_Data.max().max()*1.5]) 
-            if variant=='delta':                        
-                ax[0].set_ylim([0,125000]) 
-                ax[1].set_ylim([0,8000]) 
-                ax[2].set_ylim([0,4000]) 
+            if variant=='delta':        
+                
+                if ii < 2:
+                    ax[0].set_ylim([0,100000]) 
+                    ax[1].set_ylim([0,6000]) 
+                    ax[2].set_ylim([0,3000])    
+                else:
+                    ax[0].set_ylim([0,50000]) 
+                    ax[1].set_ylim([0,3000]) 
+                    ax[2].set_ylim([0,1500])   
+
+
             if variant=='omicron':                        
                 ax[0].set_ylim([0,800000]) 
-                ax[1].set_ylim([0,30000]) 
-                ax[2].set_ylim([0,15000]) 
+                ax[1].set_ylim([0,25000]) 
+                ax[2].set_ylim([0,10000]) 
 
             ax[2].set_xlabel('Age-Group') 
         
