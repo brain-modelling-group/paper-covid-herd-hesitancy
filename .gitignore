@@ -68,3 +68,7 @@ venv.bak/
 
 # raw data
 code/models/Results/*.csv
+
+#preliminary figures
+code/figures/*jpg
+code/figures/*pdf
