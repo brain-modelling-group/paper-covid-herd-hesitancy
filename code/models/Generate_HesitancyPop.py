@@ -12,7 +12,9 @@ import numpy as np
 # and Paula's code
 
 Cluster_Size = 20 # Number of people to infect
-    
+inf_day = 21 # day to infect
+Cluster_Size = 10000 # Number of people to infect
+inf_day = 43 # day to infect
 seed=None
 pop_size=int(2e5)
 pop_scale=5.1e6/pop_size
@@ -48,11 +50,11 @@ for Variant_Name in Variant_Names:
 
     # Get parameters for each strain
     if Variant_Name == 'alpha':
-        imported_infections = cv.variant('alpha', days= 21, n_imports=Cluster_Size, rescale=False)
+        imported_infections = cv.variant('alpha', days= inf_day, n_imports=Cluster_Size, rescale=False)
 
     elif Variant_Name == 'delta':
     
-        imported_infections = cv.variant('delta', days=21, n_imports=Cluster_Size, rescale=False)
+        imported_infections = cv.variant('delta', days=inf_day, n_imports=Cluster_Size, rescale=False)
    
     elif Variant_Name == 'omicron': # From covasim 3.1.3 unfinished version parameters
 
@@ -64,7 +66,7 @@ for Variant_Name in Variant_Names:
                     rel_death_prob  = 1.0,
                 )
 
-        imported_infections = cv.variant(omicron, days=21, n_imports=Cluster_Size, rescale=False,label = 'omicron')    
+        imported_infections = cv.variant(omicron, days=inf_day, n_imports=Cluster_Size, rescale=False,label = 'omicron')    
 
     user_pars = {'pop_size': pop_size,
                     'pop_scale': pop_scale,
