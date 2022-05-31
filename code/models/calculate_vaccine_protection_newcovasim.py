@@ -14,7 +14,7 @@ import numpy as np
 import sciris as sc   
 import pdb 
 import matplotlib.pyplot as plt
-from covasim.immunity import nab_to_efficacy
+#from covasim.immunity import nab_to_efficacy
 
 #Multiprocessing 
 from multiprocessing import Pool
@@ -326,8 +326,9 @@ def run_sims(Variant_Name,Hesitancy_Name,Seed):
         # Hesitancy: Run simulation with hesitancy  
 
         # sim_hesitance = cv.Sim(pars = pars,popfile=popfile, load_pop=True,analyzers=store_efficacy())
-        sim_hesitance = cv.Sim(pars = pars,popfile=popfile, load_pop=True, label = Variant_Name + '_' + Hesitancy_Name,analyzers=store_efficacy())
-        sim_hesitance.initialize()  # need to intialize to generate People()   
+        #sim_hesitance = cv.Sim(pars = pars,popfile=popfile, load_pop=True, label = Variant_Name + '_' + Hesitancy_Name,analyzers=store_efficacy())
+        sim_hesitance = cv.Sim(pars = pars,popfile=popfile, load_pop=True, label = Variant_Name + '_' + Hesitancy_Name)
+	    sim_hesitance.initialize()  # need to intialize to generate People()   
 
         hesitancy_uids = get_hesitancy_uids(sim_hesitance,Hesitancy,AgeGroups)
 
@@ -468,9 +469,9 @@ if __name__ == '__main__':
             total_infectious_vax[0,c1] = np.array(this_sim.results['cum_infectious'][measure_day])
             total_symptomatic_vax[0,c1] = np.array(this_sim.results['cum_symptomatic'][measure_day])
             total_severe_vax[0,c1] = np.array(this_sim.results['cum_severe'][measure_day])
-            theoretical_max_inf_eff[0,c1] = np.max(this_sim.pars['analyzers'][0].eff_sus)
-            theoretical_max_symp_eff[0,c1] = np.max(this_sim.pars['analyzers'][0].eff_symp)
-            theoretical_max_sev_eff[0,c1] =  np.nanmax(this_sim.pars['analyzers'][0].eff_sev)
+            #theoretical_max_inf_eff[0,c1] = np.max(this_sim.pars['analyzers'][0].eff_sus)
+            #theoretical_max_symp_eff[0,c1] = np.max(this_sim.pars['analyzers'][0].eff_symp)
+            #theoretical_max_sev_eff[0,c1] =  np.nanmax(this_sim.pars['analyzers'][0].eff_sev)
             c1 = c1+1
 
         elif this_sim.label == "delta_FullHesitancy":
@@ -483,9 +484,9 @@ if __name__ == '__main__':
             total_infectious_vax[1,c3] = np.array(this_sim.results['cum_infectious'][measure_day])
             total_symptomatic_vax[1,c3] = np.array(this_sim.results['cum_symptomatic'][measure_day])
             total_severe_vax[1,c3] = np.array(this_sim.results['cum_severe'][measure_day])
-            theoretical_max_inf_eff[1,c3] = np.max(this_sim.pars['analyzers'][0].eff_sus)
-            theoretical_max_symp_eff[1,c3] = np.max(this_sim.pars['analyzers'][0].eff_symp)
-            theoretical_max_sev_eff[1,c3] =  np.nanmax(this_sim.pars['analyzers'][0].eff_sev)
+            #theoretical_max_inf_eff[1,c3] = np.max(this_sim.pars['analyzers'][0].eff_sus)
+            #theoretical_max_symp_eff[1,c3] = np.max(this_sim.pars['analyzers'][0].eff_symp)
+            #theoretical_max_sev_eff[1,c3] =  np.nanmax(this_sim.pars['analyzers'][0].eff_sev)
             c3 = c3+1
 
         elif this_sim.label == "omicron_FullHesitancy":
@@ -502,18 +503,18 @@ if __name__ == '__main__':
     sev_eff = 1-np.mean((total_severe_vax[id_var,:]/total_symptomatic_vax[id_var,:]) / (total_severe_unvax[id_var,:]/total_symptomatic_unvax[id_var,:])) 
     # symp_eff = 1-np.mean(inf_eff*total_symptomatic_vax[id_var,:]/total_symptomatic_unvax[id_var,:])
     # sev_eff = 1-np.mean(inf_eff*symp_eff*total_severe_vax[id_var,:]/total_severe_unvax[id_var,:])
-    print('Protection against infection = ' + str(inf_eff*100) + '%, Theoretical Max = ' + str(np.mean(theoretical_max_inf_eff[id_var,:])*100) +'%' )
-    print('Protection against symptoms = ' + str(symp_eff*100) + '%, Theoretical Max = ' + str(np.mean(theoretical_max_symp_eff[id_var,:])*100)+'%')
-    print('Protection against severe infection = ' + str(sev_eff*100) + '%, Theoretical Max = ' + str(np.mean(theoretical_max_sev_eff[id_var,:])*100) +'%')
+    print('Protection against infection = ' + str(inf_eff*100) + '%)#, Theoretical Max = ' + str(np.mean(theoretical_max_inf_eff[id_var,:])*100) +'%' )
+    print('Protection against symptoms = ' + str(symp_eff*100) + '%)#, Theoretical Max = ' + str(np.mean(theoretical_max_symp_eff[id_var,:])*100)+'%')
+    print('Protection against severe infection = ' + str(sev_eff*100) + '%)#, Theoretical Max = ' + str(np.mean(theoretical_max_sev_eff[id_var,:])*100) +'%')
 
     print('Omicron')
     id_var = 1
     inf_eff = 1-np.mean(total_infectious_vax[id_var,:]/total_infectious_unvax[id_var,:])    
     symp_eff = 1-np.mean((total_symptomatic_vax[id_var,:]/total_infectious_vax[id_var,:]) / (total_symptomatic_unvax[id_var,:]/total_infectious_unvax[id_var,:])) 
     sev_eff = 1-np.mean((total_severe_vax[id_var,:]/total_symptomatic_vax[id_var,:]) / (total_severe_unvax[id_var,:]/total_symptomatic_unvax[id_var,:])) 
-    print('Protection against infection = ' + str(inf_eff*100) + '%, Theoretical Max = ' + str(np.mean(theoretical_max_inf_eff[id_var,:])*100) +'%' )
-    print('Protection against symptoms = ' + str(symp_eff*100) + '%, Theoretical Max = ' + str(np.mean(theoretical_max_symp_eff[id_var,:])*100)+'%')
-    print('Protection against severe infection = ' + str(sev_eff*100) + '%, Theoretical Max = ' + str(np.mean(theoretical_max_sev_eff[id_var,:])*100) +'%')
+    print('Protection against infection = ' + str(inf_eff*100) + '%)#, Theoretical Max = ' + str(np.mean(theoretical_max_inf_eff[id_var,:])*100) +'%' )
+    print('Protection against symptoms = ' + str(symp_eff*100) + '%)#, Theoretical Max = ' + str(np.mean(theoretical_max_symp_eff[id_var,:])*100)+'%')
+    print('Protection against severe infection = ' + str(sev_eff*100) + '%)#, Theoretical Max = ' + str(np.mean(theoretical_max_sev_eff[id_var,:])*100) +'%')
 
     pdb.set_trace()  
     cum_infectious = {}
