@@ -93,7 +93,7 @@ for Variant_Name in Variant_Names:
 
     people, popdict = co.make_people(params)
 
-    popfile = 'inputs/qldppl-abs2020-' + str(int(pop_size)) + '-' + Variant_Name + '-ClusterSize' + str(int(Cluster_Size))+'.pop'
+    popfile = 'qldppl-abs2020-' + str(int(pop_size)) + '-' + Variant_Name + '-ClusterSize' + str(int(Cluster_Size))+'.pop'
 
     if savepeople: 
         sc.saveobj(popfile, people)

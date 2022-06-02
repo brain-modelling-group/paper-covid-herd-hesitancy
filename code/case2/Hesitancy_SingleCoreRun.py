@@ -93,7 +93,7 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
         Hesitancy = FracUnvaccinated*Hesitancy # Evenly spread hesitancy
 
     
-    popfile = 'inputs/qldppl-abs2020-' + str(int(pop_size)) + '-' + Variant_Name + '-ClusterSize' + str(int(Cluster_Size))+'.pop'
+    popfile = 'qldppl-abs2020-' + str(int(pop_size)) + '-' + Variant_Name + '-ClusterSize' + str(int(Cluster_Size))+'.pop'
     
     # Testing and tracing probabilities for the 14-layer model
     def testing_and_tracing_interventions(sim,start_simulation_date, end_simulation_date, label, num_tests=7501):
@@ -406,13 +406,13 @@ def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size
     
     # Save infection stats and full simulation
     if AgeSpecific == 0:
-        filename_agespec = "Results/" + Hesitancy_Name + Variant_Name  + "NonSpec_AgeSpec_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
-        filename_dynamics = "Results/" + Hesitancy_Name + Variant_Name  + "NonSpec_Dynamics_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
-        sim_name = "Results/" + Hesitancy_Name + Variant_Name  + "NonSpec_Sim_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".obj"
+        filename_agespec = "results/" + Hesitancy_Name + Variant_Name  + "NonSpec_AgeSpec_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        filename_dynamics = "results/" + Hesitancy_Name + Variant_Name  + "NonSpec_Dynamics_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        sim_name = "results/" + Hesitancy_Name + Variant_Name  + "NonSpec_Sim_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".obj"
     else:
-        filename_agespec = "Results/" + Hesitancy_Name + Variant_Name  + "_AgeSpec_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
-        filename_dynamics = "Results/" + Hesitancy_Name + Variant_Name  + "_Dynamics_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
-        sim_name = "Results/" + Hesitancy_Name + Variant_Name  + "_Sim_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".obj"
+        filename_agespec = "results/" + Hesitancy_Name + Variant_Name  + "_AgeSpec_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        filename_dynamics = "results/" + Hesitancy_Name + Variant_Name  + "_Dynamics_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".csv"
+        sim_name = "results/" + Hesitancy_Name + Variant_Name  + "_Sim_ClusterSize_" + str(Cluster_Size) + "_Rep_" + str(ArrayNum) + ".obj"
    
     AgeSpecificData.transpose().to_csv(filename_agespec)
     
