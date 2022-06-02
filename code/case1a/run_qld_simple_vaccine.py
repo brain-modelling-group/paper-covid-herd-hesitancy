@@ -39,7 +39,8 @@ parser.add_argument('--nruns', default=8,
                                help='''Number of simulations to run per scenario. 
                                        Uses different PRNG seeds for each simulations.''')
 
-parser.add_argument('--results_path', default='results', 
+parser.add_argument('--results_path', 
+                              default='results', 
                               type=str, 
                               help='''The relative and/or absolute path to the results folder, without the trailing /''')
 
@@ -69,9 +70,10 @@ parser.add_argument('--age_lb',
                               help='''Age lower boundary to be within the fraction of the population that is vaccinated.''')
 
 
-parser.add_argument('--iq_factor', default=1.0,
-                                   type=float, 
-                                   help=''' Isolation factor. [0: absolute adherence]; [>1: no adherence]''')
+parser.add_argument('--iq_factor', 
+                              default=1.0,
+                              type=float, 
+                              help=''' Isolation factor. [0: absolute adherence]; [>1: no adherence]''')
 
 parser.add_argument('--cluster_size', 
                               default=20, 
@@ -92,7 +94,7 @@ parser.add_argument('--layer_betas_file',
                               help='''The name of the csv file with layer-specific betas.''')
 
 parser.add_argument('--vax_file',
-                             default='inputs/aus_air_vaccine_data.csv',
+                             default='../input_data/aus_air_vaccine_data.csv',
                              type=str,
                              help=''' The name of the csv file with age-specific vaccination statistics''')
 
@@ -455,7 +457,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Inputs
-    inputsfolder = 'inputs'
+    inputsfolder = '../input_data'
     betasfile = f'{inputsfolder}/{args.layer_betas_file}'
     popfile = f'{inputsfolder}/qldppl-abs2020-200k.pop'
 

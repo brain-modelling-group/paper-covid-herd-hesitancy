@@ -91,7 +91,7 @@ parser.add_argument('--layer_betas_file',
                               help='''The name of the csv file with layer-specific betas.''')
 
 parser.add_argument('--vax_file',
-                             default='inputs/aus_air_vaccine_data.csv',
+                             default='../input_data/aus_air_vaccine_data.csv',
                              type=str,
                              help=''' The name of the csv file with age-specific vaccination statistics''')
 
@@ -572,7 +572,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Inputs
-    inputsfolder = 'inputs'
+    inputsfolder = '../input_data/'
     betasfile = f'{inputsfolder}/{args.layer_betas_file}'
     popfile = f'{inputsfolder}/qldppl-abs2020-200k.pop'
 
