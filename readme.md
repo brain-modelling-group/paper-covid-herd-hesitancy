@@ -34,15 +34,15 @@ This code contains the following structure:
 │   │   ├── fig01
 │   │   ├── fig02
 │   │   ├── fig03
-│   │   ├── fig04-suppfigs-02-03
+│   │   ├── fig04-suppfigs-02-03-08-09-10
 │   │   ├── fig05-06-suppfigs-04-07
 │   │   ├── fig07-suppfig11
-│   │   ├── suppfig01
-│   │   └── suppfig08-09
+│   │   └── suppfig01
 │   ├── input_data
 │   └── pop_data
 └── paper
     └── figures
+
 
 
 ```
