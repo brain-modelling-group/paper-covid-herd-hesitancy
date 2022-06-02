@@ -1,0 +1,78 @@
+#PBS -l walltime=60:00:00
+#PBS -l ncpus=28,mem=64gb
+#PBS -N qld-pifzer-delta
+#PBS -m abe
+#PBS -M Sebastian.Raison@qimrberghofer.edu.au
+#PBS -o /mnt/backedup/home/sebastiR/Code/hpc-sandbox/oe-files
+#PBS -e /mnt/backedup/home/sebastiR/Code/hpc-sandbox/oe-files
+#PBS -J 1-441
+
+# Paula Sanz-Leon, June 2021, QIMRB
+
+# Load packages we need
+module load python/3.6.1
+
+# Export path to custom packages we need
+export PYTHONPATH=$HOME/Code/covasim-qld-vaccine:$PYTHONPATH
+
+# Path to directory where we are going to store results
+set -e  # tells a PBS job or bash script to exit on any processes non zero  exit status
+SCRATCH_RESULTS="$TMPDIR"
+HPC_CODE_DIRECTORY="/mnt/backedup/home/sebastiR/Code/covasim-qld-vaccine/qld-model"
+# Define number of cpus to be passed to sc.parallelize()
+# Must match the number of cpus requested with PBS
+NCPUS=28
+
+# Change to where we have the code
+cd "$HPC_CODE_DIRECTORY"
+
+# Create vectos with parameter values
+vxf=($(seq 0.00 0.05 1.0))
+vxp=($(seq 0.00 0.05 1.0))
+
+array_vxf=($(for n1 in {0..20}; do
+    for n2 in {0..20}; do
+        echo "${vxf[$n1]}"
+    done
+done))
+
+array_vxp=($(for n1 in {0..20}; do
+    for n2 in {0..20}; do
+        echo "${vxp[$n2]}"
+    done
+done))
+
+# Launch python processes
+OFFSET=1
+ARRAY_INDEX="$(($PBS_ARRAY_INDEX-$OFFSET))"
+
+echo "${array_vxc[$ARRAY_INDEX]}, ${array_vxe[$ARRAY_INDEX]}"
+VXF=${array_vxf[$ARRAY_INDEX]}
+VXP=${array_vxp[$ARRAY_INDEX]}
+python run_qld_brand_vaccine.py --ncpus "$NCPUS" --nruns 1000 \
+                                --cluster_size 20 \
+                                --vax_coverage_full "$VXF" --vax_coverage_partial "$VXP"\
+                                --global_beta 0.0339\
+                                --age_lb 12 \
+                                --iq_factor 0.0\
+                                --results_path "$SCRATCH_RESULTS"\
+                                --rescale 0\
+                                --pop_scale 1.0
+done
+
+# Create directory to save results in /working
+WORKING_DIR='/working/lab_jamesr/sebastiR/covid-results'
+# Save only the job number
+JOBNUM=${PBS_JOBID:0:8}
+WORKING_RESULTS=$WORKING_DIR/results-vax-brand-omicron-12-$JOBNUM
+
+# Create directory if it does not exist
+mkdir -p "$WORKING_RESULTS/sim-data-vax"
+mkdir -p "$WORKING_RESULTS/figures-vax"
+
+cd "$WORKING_RESULTS" || exit
+
+# Move stuff 
+scp "$SCRATCH_RESULTS/sim-data-vax/"*.obj sim-data-vax/.
+scp "$SCRATCH_RESULTS/sim-data-vax/"*.csv sim-data-vax/.
+scp "$SCRATCH_RESULTS/figures-vax/"*.png figures-vax/.
