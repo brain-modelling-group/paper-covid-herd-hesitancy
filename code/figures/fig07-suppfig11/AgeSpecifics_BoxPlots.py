@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# coding: utf-8
+"""
+Figure 07 and Supp. Figure 11
+
+"""
+
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -62,12 +70,12 @@ for agespec in agespecs:
         for ii in range(np.size(Sim_Names)):                      
                             
             # Load dictionary for violin plots               
-            Infectious_Data = pd.read_csv('../models/combined_results/' + Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Infectious.csv',index_col=0) 
-            Critical_Data= pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Critical.csv',index_col=0) 
-            Dead_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Dead.csv',index_col=0) 
-            Infectious_Vacc_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_InfectiousVacc.csv',index_col=0) 
-            Critical_Vacc_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_CriticalVacc.csv',index_col=0) 
-            Dead_Vacc_Data = pd.read_csv('../models/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_DeadVacc.csv',index_col=0) 
+            Infectious_Data = pd.read_csv('../../case2/combined_results/' + Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Infectious.csv',index_col=0) 
+            Critical_Data= pd.read_csv('../../case2/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Critical.csv',index_col=0) 
+            Dead_Data = pd.read_csv('../../case2/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_Dead.csv',index_col=0) 
+            Infectious_Vacc_Data = pd.read_csv('../../case2/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_InfectiousVacc.csv',index_col=0) 
+            Critical_Vacc_Data = pd.read_csv('../../case2/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_CriticalVacc.csv',index_col=0) 
+            Dead_Vacc_Data = pd.read_csv('../../case2/combined_results/' +Sim_Names[ii] + '_' +variant +'_' +agespec+'_All_DeadVacc.csv',index_col=0) 
             
              # Give appropriate x-axis
             x = np.linspace(0,18,7)  
