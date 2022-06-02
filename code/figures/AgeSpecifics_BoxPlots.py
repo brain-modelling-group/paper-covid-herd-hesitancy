@@ -142,7 +142,7 @@ for agespec in agespecs:
                 
                 if ii < 2:
                     ax[0].set_ylim([0,110000]) 
-                    ax[1].set_ylim([0,4000]) 
+                    ax[1].set_ylim([0,6000]) 
                     ax[2].set_ylim([0,3000])    
                 else:
                     ax[0].set_ylim([0,55000]) 

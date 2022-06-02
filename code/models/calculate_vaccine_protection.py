@@ -1,5 +1,8 @@
-# This script will simulate a QLD population with 0 infections of delta, then omicron 
-# entering after the entire population has been given two doses of pfizer.
+# This script will simulate a QLD population with 100000 infections of delta, then omicron 
+# entering after the entire population has been given two doses of pfizer then no doses.
+
+# NOTE: Suspected bug in new versions of sciris cause no difference in variants. Must run on
+# systems with version consistent with covasim 3.0.7
 
 # This version will output measurements of immunity to: transmission, symptoms and
 # severe infection (sys_imm, symp_imm and sev_imm respectively). We will also 
