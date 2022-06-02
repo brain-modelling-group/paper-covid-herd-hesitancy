@@ -1,10 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 """
+Case 1b: 
 Use brand vaccine to get herd immunity values for the adult Queensland population.
 This model also enables the comparison of results with and without rescaling. 
 This model captures first and second doses delivery.
-# author: Paula Sanz-Leon, QIMRB, September 2021
+
+Authors:
+Sebastian J. Raison
+Paula Sanz-Leon
+Lachlan H. Hamilton
+
+QIMR Berghofer Medical Research Institute 2022
 """
 
 # Import scientific python

@@ -1,12 +1,20 @@
 #!/usr/bin/env python
 # coding: utf-8
 """
+Case 1a:
 Use simple vaccine to get 
 herd immunity, only looking at tranmission blocking, 
 for the adult Queensland population, using "legacy" covasim architecture, that is, no immunity 
 waning dynamics, no cv.variants(), etc
 
-# author: Paula Sanz-Leon, QIMRB, May 2021
+
+Authors:
+Sebastian J. Raison
+Paula Sanz-Leon
+Lachlan H. Hamilton
+
+QIMR Berghofer Medical Research Institute 2022
+
 """
 
 # Import scientific python
