@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# coding: utf-8
+"""
+Supp. Figures 08-09
+
+# Uses outputs of run_qld_simple_vaccine.py directly to create heatmaps of mean r_eff_30 and 
+SEM reff30
+"""
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
