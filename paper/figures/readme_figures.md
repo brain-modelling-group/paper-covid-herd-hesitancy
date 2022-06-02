@@ -1,6 +1,6 @@
 #### Figure Captions [2022-06-01]
 
-- **Figure 1:** Schematic illustrating the mutually exclusive states agents can take in the model. Arrows denote direction of disease progression. Pink boxes denote variants of concern to which an agent can be exposed, and whose properties (e.g., such as transmissibility and severity) are already implemented in Covasim version 3.0.7 and above [\cite{cohen2021mechanistic}](https://www.medrxiv.org/content/10.1101/2021.05.31.21258018v2). In this work, however, we only study the effects of the Alpha (B.1.1.7) and Delta (B.1.617.2) variants.
+- [**Figure 1:**](fig01_seir_v4_copy.png) Schematic illustrating the mutually exclusive states agents can take in the model. Arrows denote direction of disease progression. Pink boxes denote variants of concern to which an agent can be exposed, and whose properties (e.g., such as transmissibility and severity) are already implemented in Covasim version 3.0.7 and above [\cite{cohen2021mechanistic}](https://www.medrxiv.org/content/10.1101/2021.05.31.21258018v2). In this work, however, we only study the effects of the Alpha (B.1.1.7) and Delta (B.1.617.2) variants.
 
 
 - **Figure 2:** Age-specific state of vaccination in Queensland as of 17 August 2021. The height of each bar represents the percentage of people that have been either partially or fully vaccinated in that age group. Dotted lines indicate 20\%, 50\% and 80\%.
