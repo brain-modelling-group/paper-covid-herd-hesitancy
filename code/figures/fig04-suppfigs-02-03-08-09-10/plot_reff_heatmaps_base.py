@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 """
-Figure 04, and Supp. Figure 02
+Figure 04 (mean reff30)
+Supp. Figure 02 (sem reff30)
+Supp. Figure 08 (mean reff30)
+Supp. Figure 09 (sem reff30)
 
-# Uses outputs of run_qld_simple_vaccine.py directly to create heatmaps of r_eff_30
+# Uses outputs of run_qld_simple_vaccine.py directly to create heatmaps of r_eff_30, or SEM reff30
 """
 import numpy as np
 import pandas as pd
