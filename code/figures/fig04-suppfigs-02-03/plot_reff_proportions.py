@@ -2,6 +2,7 @@
 # coding: utf-8
 """
 Supp. Figure 03
+Supp. Figure 10
 
 Uses outputs of run_qld_simple_vaccine.py directly to create 
 heatmaps with proportion of r_eff_30 values < 1
