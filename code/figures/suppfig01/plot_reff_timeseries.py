@@ -1,4 +1,11 @@
-# Plot r_eff timeseries
+#!/usr/bin/env python
+# coding: utf-8
+
+"""
+Supp. Figure 01
+Plot r_eff and derivative of reff timeseries
+
+"""
 
 import numpy as np
 import pandas as pd
