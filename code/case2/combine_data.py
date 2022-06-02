@@ -26,7 +26,7 @@ for agespec in agespecs:
     for variant in variants:
         for ii in range(np.size(Sim_Names)):    
             #Load file 
-            fname = glob.glob('../models/Results/' + Sim_Names[ii] + variant + agespec + '_AgeSpec_ClusterSize_20' + '*.csv' )
+            fname = glob.glob('../case2/results/' + Sim_Names[ii] + variant + agespec + '_AgeSpec_ClusterSize_20' + '*.csv' )
             N = np.size(fname) # Find number of matching files
     
             # Prepare and clear data
