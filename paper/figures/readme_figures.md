@@ -1,57 +1,24 @@
-#### Figure Captions [2021-08-26]
+#### Figure Captions [2022-06-01]
 
-- **Figure 1:** Schematic illustrating the mutually exclusive compartments and states agents can take in Covasim 3.0.X series.
-Illustration inspired by Fig. 1 in [11].
-
-
-- **Figure 2:** 
+- **Figure 1:** Schematic illustrating the mutually exclusive states agents can take in the model. Arrows denote direction of disease progression. Pink boxes denote variants of concern to which an agent can be exposed, and whose properties (e.g., such as transmissibility and severity) are already implemented in Covasim version 3.0.7 and above [\cite{cohen2021mechanistic}](https://www.medrxiv.org/content/10.1101/2021.05.31.21258018v2). In this work, however, we only study the effects of the Alpha (B.1.1.7) and Delta (B.1.617.2) variants.
 
 
-- **Figure 3:**
+- **Figure 2:** Age-specific state of vaccination in Queensland as of 17 August 2021. The height of each bar represents the percentage of people that have been either partially or fully vaccinated in that age group. Dotted lines indicate 20\%, 50\% and 80\%.
 
 
-- **Figure 4:** 
+
+- **Figure 3:** Empirical Australian hesitancy rates in the adult population \cite{biddle_change_2021} in August 2020, January 2021 and April 2021, for six representative age groups. In this plot, the height of each bar is the hesitancy rate of a specific age group, and its value is expressed as a percentage relative to the size of the total adult population (i.e., aged 18 years and over).
 
 
-- **Figure 5:**
+- **Figure 4:** Effective reproductive number 30 days after seeding an outbreak ($r^{30}\_\mathrm{eff}$), as a function of vaccine effectiveness (infection blocking) and vaccine coverage (fraction of the eligible population vaccinated, shown along the top axes). The fraction of the total population vaccinated is shown along the bottom axes. Outlined areas indicate values of vaccine coverage over which herd immunity is reached as per the definition given in Sec.~\ref{subsec:metrics} for those vaccine effectiveness values at which herd immunity is achieved at all. We have clipped the colour scale such that $r^{30}\_\mathrm{eff} \in$ [0.5, 1.5] to better see the zone near $r^{30}\_\mathrm{eff}=1$. \textbf{A:} Alpha variant, ages 16+ eligible. \textbf{B:} Alpha variant, ages 16+ eligible. \textbf{C:} Delta variant, ages 16+ eligible. \textbf{D:} Delta variant, ages 12+ eligible. \textbf{E:} Omicron variant, ages 16+ eligible. \textbf{F:} Omicron variant, ages 12+ eligible.
+Initial number of imported infections is 20, other simulation parameters are summarized in Supp. Table~\ref{table:herd-model}.
 
 
-- **Figure 6:** 
+- **Figure 5:** Partial versus full vaccination coverage. Effective reproductive number on day 30 after initial infections are imported ($r^{30}\_\mathrm{eff}$), as a function of the proportion of people that received at least one dose and the proportion of people who received two doses (everyone receives Pfizer and the proportions along the top axis are with respect to the eligible population. In all scenarios 20 agents infected with the Delta variant are inserted into the community. We have clipped the colour scale such that $r^{30}\_\mathrm{eff} \in$ [0.5, 1.5] to better see the zone near $r^{30}\_\mathrm{eff}=1$. \textbf{A}: Eligible population 16+. \textbf{B:} Eligible population 12+. From top left to bottom right, the yellow squares illustrate the progression of the vaccine rollout in Queensland, from top-left to bottom-right, starting from August 1st 2021 and proceeding  along the first of each month through to January 2022 \cite{air_vax_data}.
 
 
-- **Figure 7:** 
+- **Figure 6:** Partial versus full vaccination coverage. Effective reproductive number on day 30 after initial infections are imported ($r^{30}\_\mathrm{eff}$), as a function of the proportion of people that received at least one dose and the proportion of people who received two doses (everyone receives Pfizer and the proportions along the top axis are with respect to the eligible population. In all scenarios 20 agents infected with the Omicron variant are inserted into the community. We have clipped the colour scale such that $r^{30}\_\mathrm{eff} \in$ [0.5, 1.5] to better see the zone near $r^{30}\_\mathrm{eff}=1$. \textbf{A}: Eligible population 16+. \textbf{B:} Eligible population 12+. From top left to bottom right, the yellow squares illustrate the progression of the vaccine rollout in Queensland, from top-left to bottom-right, starting from August 1st 2021 and proceeding  along the first of each month through to January 2022 \cite{air\_vax\_data}.
 
 
-- **Figure 8:**
+- **Figure 7:** A comparison of age-specific health outcomes: infections (green), critical cases (red), deaths (grey), 90 days after the insertion of 20 agents infected with the Delta variant. \textbf{A:} Eligible population 16+, with age-specific hesitancy as in January 2021. \textbf{B:} Eligible population 16+, with hesitancy as in April 2021. \textbf{C:} Eligible population 12+, with hesitancy levels as in April 2021, and individuals aged 12-17 are assigned their parents' hesitancy (i.e., in the 35-44 bracket).  \textbf{D:} Eligible population 12+, and all agents have 8\% hesitancy, which is the lowest observed in empirical data across all age-groups. The values correspond to number of individuals in each state and age bin (boxplot of $1000$ simulations, with individual results overlaid), for all individuals (light coloured bars), and the vaccinated subset (dark coloured bars). The hesitancy and vaccination coverage are summarized in Supp. Table\ref{table:Hesitancy_Parameters_Months}. 
 
-
-- **Figure 9:** 
-
-
-- **Figure 10:**
-
-
-- **Figure 11:** 
-
-
-- **Figure 12:** 
-
-
-#### Supplementary Figure Captions [2021-08-26]
-
-- **Figure S1:** 
-
-
-- **Figure S2:** 
-
-
-- **Figure S3:** 
-
-
-- **Figure S4:** 
-
-
-- **Figure S5:** 
-
-
-- **Figure S6:** 
