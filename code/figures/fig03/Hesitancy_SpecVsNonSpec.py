@@ -1,11 +1,11 @@
-  # Edited Paula's code for figure 4
+#!/usr/bin/env python
+# coding: utf-8
+
+"""
+Figure 03
+"""
 import numpy as np
 import matplotlib.pyplot as plt
-# plt.rcParams.update({
-#     "text.usetex": True,
-#     "font.family": "serif",
-#    # "font.serif": ["Times"],
-# })
 
 # Mock up fig. 4 - https://melbourneinstitute.unimelb.edu.au/publications/research-insights/ttpn/vaccination-report
 fig, ax = plt.subplots(nrows=2, ncols=1, figsize=(10,5.5))
