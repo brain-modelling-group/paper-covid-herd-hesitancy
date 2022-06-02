@@ -2,10 +2,19 @@
 
 Public repository with the code used in: 
 
+**Modelling herd immunity requirements in Queensland: impact of vaccination effectiveness, hesitancy, and variants of SARS-CoV-2** 
+
+**Authors:** 
 
 Paula Sanz-Leon, Lachlan H. W. Hamilton, Sebastian J. Raison, Anna J. X. Pan, Nathan J. Stevenson, Robyn M. Stuart, Romesh G. Abeysuriya, Cliff C. Kerr, Stephen B. Lambert, James A. Roberts. 
 
-*Modelling herd immunity requirements in Queensland: impact of vaccination effectiveness, hesitancy, and variants of SARS-CoV-2*. (2022) Philosphical Transactions of the Royal Society: Series A. (under review). 
+**Journal:**
+
+Philosphical Transactions of the Royal Society: Series A. (under review). 
+
+**Year:**
+
+2022
 
 
 This code contains the following structure:
