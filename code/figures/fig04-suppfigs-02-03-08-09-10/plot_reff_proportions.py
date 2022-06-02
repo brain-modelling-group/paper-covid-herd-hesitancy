@@ -19,7 +19,9 @@ import matplotlib.cm as mcm
 import seaborn as sns
 
 import argparse
+import os
 
+sep = os.sep
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--variant', default = 'delta', type = str)
@@ -35,7 +37,7 @@ def get_reff_heatmap_df(vax_covs, vax_effs, metric, args):
 
     for idx1, vax_eff in enumerate(vax_effs):
         for idx2, vax_cov in enumerate(vax_covs):
-            data = pd.read_csv(f'..\\results\\csv-data\\results-{args.variant}-{args.age_lb}\\sim-data-vax\\summary-stats\\qld_simple-vax_apply-tt_0020_iqf_0.00_vxstr_none_vxcov_{vax_cov:.{2}f}_vxeff_{vax_eff:.{2}f}_age-lb_{args.age_lb}.csv')
+            data = pd.read_csv(f'..{sep}results{sep}csv-data{sep}results-{args.variant}-{args.age_lb}{sep}sim-data-vax{sep}summary-stats{sep}qld_simple-vax_apply-tt_0020_iqf_0.00_vxstr_none_vxcov_{vax_cov:.{2}f}_vxeff_{vax_eff:.{2}f}_age-lb_{args.age_lb}.csv')
             r_effs[idx1, idx2] = data.loc[options[metric], 'r_eff_30'] #index 0 corresponds to mean value
 
     df = pd.DataFrame(r_effs, index = vax_effs, columns = vax_covs)
