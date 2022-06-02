@@ -1,11 +1,26 @@
-# This script will simulate a QLD population with Cluster_Size infections of Variant_Name 
-# entering after the entire population has been given two doses of pfizer, except for the 
-# designated hesitant people. These are chosen by the Hesitancy_Name, which chosses values 
-# found in QLD by Biddel et al., 2021 of age-specific hesitancy - and a few other hypothetical 
-# values. AgeSpecific = 0 gives uniform hesitancy with age (but the same total hesitancy) and
-# ArrayNum gives a unique number for saving multiple runs. 
+"""
+Case 2:
 
-# Requires population files created by Generate_HesitancyPop.py.
+This script will simulate a QLD population with Cluster_Size infections of Variant_Name 
+entering after the entire population has been given two doses of pfizer, except for the 
+designated hesitant people. These are chosen by the Hesitancy_Name, which chosses values 
+found in QLD by Biddel et al., 2021 of age-specific hesitancy - and a few other hypothetical 
+values. AgeSpecific = 0 gives uniform hesitancy with age (but the same total hesitancy) and
+ArrayNum gives a unique number for saving multiple runs. 
+
+Requires population files created by Generate_HesitancyPop.py.
+
+Example:
+>> python -c "from Hesitancy_SingleCoreRun import*; Hesitancy_SingleCoreRun('FullHesitancy',0,'omicron', 20, 0)"
+
+
+Authors:
+Lachlan H. Hamilton
+Paula Sanz-Leon
+Sebastian J. Raison
+QIMR Berghofer Medical Research Institute 2022
+"""
+
 
 def Hesitancy_SingleCoreRun(Hesitancy_Name,AgeSpecific,Variant_Name,Cluster_Size,ArrayNum):       
     import covasim as cv
