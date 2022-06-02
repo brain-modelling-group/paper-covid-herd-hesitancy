@@ -1,4 +1,12 @@
-# Uses outputs of run_qld_brand_vaccine.py directly to create heatmaps of r_eff_30
+#!/usr/bin/env python
+# coding: utf-8
+"""
+Figures 05 and 06
+Supp. Figures 04 and 06
+
+Uses outputs of run_qld_brand_vaccine.py directly to create heatmaps of mean r_eff_30, 
+or SEM r_eff_30. 
+"""
 
 import numpy as np
 import pandas as pd

@@ -1,4 +1,11 @@
-# plot heatmaps with proportion of r_eff_30 values < 1
+#!/usr/bin/env python
+# coding: utf-8
+"""
+Supp. Figures 05 and 07
+
+Uses outputs of run_qld_brand_vaccine.py directly to create heatmaps of proportion of r_eff_30 values < 1
+"""
+
 
 import numpy as np
 import pandas as pd
