@@ -71,7 +71,7 @@ def get_heatmap_df(vax_parts, vax_fulls, args):
     for idx1, vax_full in enumerate(vax_fulls):
         for idx2, vax_part in enumerate(vax_parts):
             if vax_part >= vax_full:
-                data = pd.read_csv(f'..{sep}../case1b{sep}results{sep}csv-data{sep}results-brand-vax{sep}{args.variant}-{args.age_lb}{sep}sim-data-vax{sep}summary-stats{sep}qld_pfizer-vax_0020_iqf_0.00_vxfull_{vax_full:.{2}f}_vxpart_{vax_part:.{2}f}.csv')
+                data = pd.read_csv(f'..{sep}../case1b{sep}results{sep}results-brand-vax{sep}{args.variant}-{args.age_lb}{sep}sim-data-vax{sep}summary-stats{sep}qld_pfizer-vax_0020_iqf_0.00_vxfull_{vax_full:.{2}f}_vxpart_{vax_part:.{2}f}.csv')
                 r_effs[idx1, idx2] = data.loc[options[args.metric], 'r_eff_74'] # Simulations start 44 days before seed infection
 
     df = pd.DataFrame(r_effs, index = vax_fulls, columns = vax_parts)
