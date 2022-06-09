@@ -47,7 +47,7 @@ This code contains the following structure:
 
 ```
 
-The models were developed and ran with [covasim 3.0.7](https://pypi.org/project/covasim/3.0.7/) and [sciris 1.1.1](https://pypi.org/project/sciris/1.1.1/).
+The models were developed and run with [covasim 3.0.7](https://pypi.org/project/covasim/3.0.7/) and [sciris 1.1.1](https://pypi.org/project/sciris/1.1.1/).
 
 
 
